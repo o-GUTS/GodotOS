@@ -9,18 +9,14 @@
 [ext_resource type="Script" uid="uid://bcvlao324av3w" path="res://Scenes/Taskbar/settings_button.gd" id="6_38i4x"]
 [ext_resource type="Script" uid="uid://33k2ree3e2yt" path="res://Scenes/Taskbar/taskbar_time.gd" id="7_2yhho"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lxws7"]
-bg_color = Color(0.0784314, 0.0784314, 0.0784314, 0.784314)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lnonj"]
 bg_color = Color(0.666667, 0, 0, 0.392157)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nbmie"]
 bg_color = Color(1, 0.247059, 0.188235, 0.588235)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2dh2v"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lxws7"]
 bg_color = Color(0.0784314, 0.0784314, 0.0784314, 0.784314)
-corner_radius_top_left = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bd8k4"]
 bg_color = Color(0.501961, 0.501961, 0.501961, 0.392157)
@@ -28,6 +24,10 @@ corner_radius_top_left = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bm3y2"]
 bg_color = Color(0.4, 0.4, 0.4, 0.392157)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2dh2v"]
+bg_color = Color(0.0784314, 0.0784314, 0.0784314, 0.784314)
+corner_radius_top_left = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mxh1o"]
 bg_color = Color(0.1, 0.1, 0.1, 0.6)
@@ -65,6 +65,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 1
+
+[node name="Terminal" parent="StartMenuAnchor/Start Menu/VBoxContainer" instance=ExtResource("2_1ualm")]
+layout_mode = 2
+game_scene = "res://Games/Terminal/terminal_scene.tscn"
+title_text = "Terminal"
+description_text = "The best tool"
+use_generic_pause_menu = false
 
 [node name="Godotris Option" parent="StartMenuAnchor/Start Menu/VBoxContainer" instance=ExtResource("2_1ualm")]
 layout_mode = 2
@@ -107,9 +114,9 @@ offset_top = -48.0
 grow_horizontal = 0
 grow_vertical = 0
 focus_mode = 0
-theme_override_styles/normal = SubResource("StyleBoxFlat_lxws7")
 theme_override_styles/hover = SubResource("StyleBoxFlat_lnonj")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_nbmie")
+theme_override_styles/normal = SubResource("StyleBoxFlat_lxws7")
 action_mode = 0
 icon = ExtResource("3_sudyn")
 icon_alignment = 1
@@ -129,9 +136,9 @@ offset_right = -48.0
 grow_horizontal = 0
 grow_vertical = 0
 focus_mode = 0
-theme_override_styles/normal = SubResource("StyleBoxFlat_2dh2v")
 theme_override_styles/hover = SubResource("StyleBoxFlat_bd8k4")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_bm3y2")
+theme_override_styles/normal = SubResource("StyleBoxFlat_2dh2v")
 action_mode = 0
 icon = ExtResource("5_srcnq")
 icon_alignment = 1
@@ -204,10 +211,10 @@ anchor_bottom = 1.0
 offset_top = 2.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 1
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_y = 1
+theme_override_constants/shadow_offset_x = 1
 bbcode_enabled = true
 text = "[center]22:22 PM"
 
@@ -219,10 +226,10 @@ anchor_bottom = 1.0
 offset_top = 20.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 1
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_y = 1
+theme_override_constants/shadow_offset_x = 1
 theme_override_font_sizes/normal_font_size = 12
 bbcode_enabled = true
 text = "[center]69/69/2024"

@@ -1,0 +1,50 @@
+[gd_scene load_steps=3 format=3 uid="uid://boie5q3r1lqgy"]
+
+[ext_resource type="Script" uid="uid://bdg57o6sh5i6p" path="res://Games/Terminal/terminal_script.gd" id="1_rb3gj"]
+[ext_resource type="Theme" uid="uid://dpurq16q71hq1" path="res://Games/Terminal/terminal_theme.tres" id="2_tk863"]
+
+[node name="terminal_scene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rb3gj")
+
+[node name="bg" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -69.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 0
+
+[node name="command_output_container" type="VBoxContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+alignment = 2
+
+[node name="comand_line" type="LineEdit" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2_tk863")
+placeholder_text = "Enter Command"
+keep_editing_on_text_submit = true
+caret_blink = true
+
+[connection signal="text_submitted" from="VBoxContainer/comand_line" to="." method="_on_comand_line_text_submitted"]
