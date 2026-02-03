@@ -1,3 +1,4 @@
+extends Resource
 class_name TerminalCommand
 
 var call_name: String = ""

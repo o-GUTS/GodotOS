@@ -5,5 +5,5 @@ func _init() -> void:
 	call_name = "cls"
 
 
-func execute(terminal: Terminal, args: Array[String]) -> void:
+func execute(terminal: Terminal, _args: Array[String]) -> void:
 	terminal.clear_output()
