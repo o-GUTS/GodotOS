@@ -2,7 +2,7 @@ extends TerminalCommand
 
 
 func _init() -> void:
-	call_name = "cls"
+	call_name = "commands"
 
 
 func execute(terminal: Terminal, args: Array[String]) -> void:
@@ -10,4 +10,5 @@ func execute(terminal: Terminal, args: Array[String]) -> void:
 		terminal.push_line_to_output("Invalid command usage")
 		return
 	
-	terminal.clear_output()
+	for cmd_name: String in terminal.commands.keys():
+		terminal.push_line_to_output(cmd_name)

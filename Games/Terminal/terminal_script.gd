@@ -4,8 +4,9 @@ class_name Terminal
 
 const COMMAND_OUTPUT_LABEL_SCENE: PackedScene = preload("res://Games/Terminal/command_output_label.tscn")
 const COMMANDS_DIR: String = "res://Games/Terminal/commands/"
+const MAX_OUTPUT_LINES: int = 15 # Based on label font size
 
-@onready var comand_line: LineEdit = %comand_line
+@onready var command_line: LineEdit = %command_line
 @onready var command_output_container: VBoxContainer = %command_output_container
 
 # All the commands are loaded on opening the terminal
@@ -40,6 +41,10 @@ func push_line_to_output(text: String) -> void:
 	var new_label: CommandOutputLabel = COMMAND_OUTPUT_LABEL_SCENE.instantiate()
 	command_output_container.add_child(new_label)
 	new_label.text = text
+	
+	#ALERT This may break if the viewport height changes
+	if command_output_container.get_child_count() > MAX_OUTPUT_LINES:
+		command_output_container.get_child(0).queue_free()
 
 
 # Just queue_free all the labels
@@ -55,7 +60,7 @@ func clear_output() -> void:
 func parse_input(input: String) -> ParserOutput:
 	var parsed_input: Array[String] = []
 	
-	# Remove all non-printable characters from the edges of the string. 
+	# Remove all non-printable characters from the edges of the string.
 	input.strip_edges()
 	
 	var current_substring: String = ""
@@ -81,16 +86,15 @@ func parse_input(input: String) -> ParserOutput:
 
 
 # Called when the user presses enter with the command line in focus
-func _on_comand_line_text_submitted(new_text: String) -> void:
-	comand_line.clear()
+func _on_command_line_text_submitted(new_text: String) -> void:
+	command_line.clear()
 	
 	var parsed_input: ParserOutput = parse_input(new_text)
 	if commands.has(parsed_input.command_call_name):
 		var cmd: TerminalCommand = commands.get(parsed_input.command_call_name)
 		cmd.execute(self, parsed_input.command_args)
 	else:
-		#TODO handle command not found
-		pass
+		push_line_to_output("%s not found" % [parsed_input.command_call_name])
 
 
 class ParserOutput:

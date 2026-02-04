@@ -8,7 +8,8 @@ var call_name: String = ""
 func _init() -> void:
 	push_error("Not implemented, setup the call_name variable here")
 
-# Called when the user input matches the call_name variable
+# Called when the user input matches the call_name variable,
+# is the main entry point of the command
 @warning_ignore("unused_parameter")
 func execute(terminal: Terminal, args: Array[String]) -> void:
 	push_error("Not implemented, the command main code goes here")

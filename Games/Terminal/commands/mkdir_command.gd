@@ -10,7 +10,8 @@ func execute(terminal: Terminal, args: Array[String]) -> void:
 	
 	if args.size() == 1:
 		desktop.new_folder()
-		#TODO change folder name to match arg[0]
+		
+		#TODO change new folder name to match arg[0]
 		terminal.push_line_to_output("Created new directory named: %s" % [args[0]])
 	else:
 		terminal.push_line_to_output("Invalid command usage")

@@ -21,30 +21,39 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="contents_container" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
+anchors_preset = 10
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -69.0
+offset_bottom = 35.0
 grow_horizontal = 2
-grow_vertical = 0
 theme_override_constants/separation = 0
 
-[node name="command_output_container" type="VBoxContainer" parent="VBoxContainer"]
+[node name="command_output_container" type="VBoxContainer" parent="contents_container"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_vertical = 0
 theme_override_constants/separation = 0
-alignment = 2
 
-[node name="comand_line" type="LineEdit" parent="VBoxContainer"]
-unique_name_in_owner = true
+[node name="HBoxContainer" type="HBoxContainer" parent="contents_container"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="contents_container/HBoxContainer"]
 layout_mode = 2
 theme = ExtResource("2_tk863")
-placeholder_text = "Enter Command"
-keep_editing_on_text_submit = true
-caret_blink = true
+text = "~ > "
 
-[connection signal="text_submitted" from="VBoxContainer/comand_line" to="." method="_on_comand_line_text_submitted"]
+[node name="command_line" type="LineEdit" parent="contents_container/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_tk863")
+keep_editing_on_text_submit = true
+context_menu_enabled = false
+emoji_menu_enabled = false
+deselect_on_focus_loss_enabled = false
+caret_blink = true
+caret_force_displayed = true
+caret_mid_grapheme = true
+
+[connection signal="text_submitted" from="contents_container/HBoxContainer/command_line" to="." method="_on_command_line_text_submitted"]

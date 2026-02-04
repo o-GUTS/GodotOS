@@ -6,9 +6,11 @@ func _init() -> void:
 
 
 func execute(terminal: Terminal, args: Array[String]) -> void:
-	#TODO just for testing
 	var output: String = ""
 	for arg: String in args:
 		output += arg + " "
+	
+	# Remove all non-printable characters from the edges of the string. 
+	output.strip_edges()
 	
 	terminal.push_line_to_output(output)

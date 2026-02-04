@@ -13,9 +13,9 @@ bg_color = Color(0, 0, 0, 1)
 bg_color = Color(0, 0, 0, 1)
 
 [resource]
-Label/font_sizes/font_size = 25
+Label/font_sizes/font_size = 29
 Label/styles/normal = SubResource("StyleBoxFlat_m2dba")
-LineEdit/font_sizes/font_size = 25
+LineEdit/font_sizes/font_size = 29
 LineEdit/styles/focus = SubResource("StyleBoxFlat_xlemd")
 LineEdit/styles/normal = SubResource("StyleBoxFlat_6c7uh")
 LineEdit/styles/read_only = SubResource("StyleBoxFlat_iokxk")
