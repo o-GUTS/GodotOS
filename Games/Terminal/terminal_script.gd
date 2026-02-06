@@ -8,6 +8,7 @@ const MAX_OUTPUT_LINES: int = 15 # Based on label font size
 
 @onready var command_line: LineEdit = %command_line
 @onready var command_output_container: VBoxContainer = %command_output_container
+@onready var scroll_container: ScrollContainer = %scroll_container
 
 # All the commands are loaded on opening the terminal
 # and stored here, indexed by its call_name
@@ -42,9 +43,22 @@ func push_line_to_output(text: String) -> void:
 	command_output_container.add_child(new_label)
 	new_label.text = text
 	
-	#ALERT This may break if the viewport height changes
-	if command_output_container.get_child_count() > MAX_OUTPUT_LINES:
-		command_output_container.get_child(0).queue_free()
+	update_scroll()
+
+
+# Make the container scroll all the way down
+# to keep the command input visible
+func update_scroll() -> void:
+	#TODO find a more simple and clean way
+	
+	# Wait a process_frame to update the container correctly
+	# if not, the scroll is going to jump to a position before
+	# the new label added has changed the container size
+	for x in range(3):
+		#ALERT "hacky" way, awaiting just one frame can
+		# make the problem cited above hapens anyway 
+		await get_tree().process_frame
+	scroll_container.set_deferred("scroll_vertical", scroll_container.get_v_scroll_bar().max_value)
 
 
 # Just queue_free all the labels
@@ -88,6 +102,12 @@ func parse_input(input: String) -> ParserOutput:
 # Called when the user presses enter with the command line in focus
 func _on_command_line_text_submitted(new_text: String) -> void:
 	command_line.clear()
+	
+	push_line_to_output("~ > " + new_text)
+	
+	# if user inputs a empty string
+	if new_text.replace(" ", "") == "":
+		return
 	
 	var parsed_input: ParserOutput = parse_input(new_text)
 	if commands.has(parsed_input.command_call_name):

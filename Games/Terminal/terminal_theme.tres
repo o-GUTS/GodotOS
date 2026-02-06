@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=5 format=3 uid="uid://dpurq16q71hq1"]
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://dpurq16q71hq1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m2dba"]
 bg_color = Color(0, 0, 0, 1)
@@ -12,10 +12,20 @@ bg_color = Color(0, 0, 0, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iokxk"]
 bg_color = Color(0, 0, 0, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uf2gs"]
+bg_color = Color(1, 1, 1, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ide7"]
+bg_color = Color(1, 1, 1, 0)
+
 [resource]
+Label/colors/font_color = Color(1, 1, 1, 1)
 Label/font_sizes/font_size = 29
 Label/styles/normal = SubResource("StyleBoxFlat_m2dba")
+LineEdit/colors/font_color = Color(1, 1, 1, 1)
 LineEdit/font_sizes/font_size = 29
 LineEdit/styles/focus = SubResource("StyleBoxFlat_xlemd")
 LineEdit/styles/normal = SubResource("StyleBoxFlat_6c7uh")
 LineEdit/styles/read_only = SubResource("StyleBoxFlat_iokxk")
+VScrollBar/styles/scroll = SubResource("StyleBoxFlat_uf2gs")
+VScrollBar/styles/scroll_focus = SubResource("StyleBoxFlat_4ide7")

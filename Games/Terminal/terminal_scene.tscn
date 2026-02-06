@@ -21,29 +21,39 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="contents_container" type="VBoxContainer" parent="."]
+[node name="scroll_container" type="ScrollContainer" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 10
+anchors_preset = 15
 anchor_right = 1.0
-offset_bottom = 35.0
+anchor_bottom = 1.0
 grow_horizontal = 2
-theme_override_constants/separation = 0
+grow_vertical = 2
+theme = ExtResource("2_tk863")
+horizontal_scroll_mode = 0
 
-[node name="command_output_container" type="VBoxContainer" parent="contents_container"]
+[node name="contents_container" type="VBoxContainer" parent="scroll_container"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = -1
+
+[node name="command_output_container" type="VBoxContainer" parent="scroll_container/contents_container"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_constants/separation = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="contents_container"]
+[node name="HBoxContainer" type="HBoxContainer" parent="scroll_container/contents_container"]
 layout_mode = 2
+theme_override_constants/separation = 0
 
-[node name="Label" type="Label" parent="contents_container/HBoxContainer"]
+[node name="Label" type="Label" parent="scroll_container/contents_container/HBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 1
 theme = ExtResource("2_tk863")
 text = "~ > "
 
-[node name="command_line" type="LineEdit" parent="contents_container/HBoxContainer"]
+[node name="command_line" type="LineEdit" parent="scroll_container/contents_container/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -56,4 +66,4 @@ caret_blink = true
 caret_force_displayed = true
 caret_mid_grapheme = true
 
-[connection signal="text_submitted" from="contents_container/HBoxContainer/command_line" to="." method="_on_command_line_text_submitted"]
+[connection signal="text_submitted" from="scroll_container/contents_container/HBoxContainer/command_line" to="." method="_on_command_line_text_submitted"]
