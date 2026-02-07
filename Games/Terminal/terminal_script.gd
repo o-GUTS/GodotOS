@@ -4,7 +4,7 @@ class_name Terminal
 
 const COMMAND_OUTPUT_LABEL_SCENE: PackedScene = preload("res://Games/Terminal/command_output_label.tscn")
 const COMMANDS_DIR: String = "res://Games/Terminal/commands/"
-const MAX_OUTPUT_LINES: int = 15 # Based on label font size
+const MAX_INPUT_HISTORY_SIZE: int = 10
 
 @onready var command_line: LineEdit = %command_line
 @onready var command_output_container: VBoxContainer = %command_output_container
@@ -13,6 +13,14 @@ const MAX_OUTPUT_LINES: int = 15 # Based on label font size
 # All the commands are loaded on opening the terminal
 # and stored here, indexed by its call_name
 var commands: Dictionary[String, TerminalCommand] = {}
+
+# A custom queue to store the user input history
+# it follows 3 rules:
+# - new input is appended to the front
+# - overflow input is removed from the back
+# - the first element is the current text in the command_line when the user starts to navigate history
+var input_history: Array[String] = [""]
+var _input_history_index: int = 0
 
 
 func _ready() -> void:
@@ -44,6 +52,41 @@ func push_line_to_output(text: String) -> void:
 	new_label.text = text
 	
 	update_scroll()
+
+
+# Append the new input to the front, don't interfering with the reserved first element
+# if greater than MAX_INPUT_HISTORY_SIZE, removes the last element
+func push_input_to_history(input: String) -> void:
+	# Index 1 to not change the reserved first place
+	input_history.insert(1, input)
+	
+	if input_history.size() > MAX_INPUT_HISTORY_SIZE:
+		input_history.pop_back()
+	
+	# Sets to zero, so the next history navigation
+	# can start in the right place 
+	_input_history_index = 0
+
+
+# Returns the value in input_history[_input_history_index]
+# and updates the history index
+func get_input_in_history(go_up: bool) -> String:
+	# If user is starting the history navigation then sets the
+	# first element on the array to the current text in the command_line
+	if go_up and _input_history_index == 0:
+		input_history[0] = command_line.text
+	
+	if go_up:
+		_input_history_index += 1
+	else:
+		_input_history_index -= 1
+	
+	_input_history_index = clamp(
+		_input_history_index,
+		0, input_history.size() - 1
+	)
+	
+	return input_history[_input_history_index]
 
 
 # Make the container scroll all the way down
@@ -103,6 +146,7 @@ func parse_input(input: String) -> ParserOutput:
 func _on_command_line_text_submitted(new_text: String) -> void:
 	command_line.clear()
 	
+	push_input_to_history(new_text)
 	push_line_to_output("~ > " + new_text)
 	
 	# if user inputs a empty string
@@ -115,6 +159,18 @@ func _on_command_line_text_submitted(new_text: String) -> void:
 		cmd.execute(self, parsed_input.command_args)
 	else:
 		push_line_to_output("%s not found" % [parsed_input.command_call_name])
+
+
+func _on_command_line_gui_input(event: InputEvent) -> void:
+	# Increments index and get input at that time
+	if event.is_action_pressed("ui_text_caret_up"):
+		command_line.text = get_input_in_history(true)
+		command_line.set_deferred("caret_column", command_line.text.length())
+	
+	# Decrements index and get input at that time
+	elif event.is_action_pressed("ui_text_caret_down"):
+		command_line.text = get_input_in_history(false)
+		command_line.set_deferred("caret_column", command_line.text.length())
 
 
 class ParserOutput:

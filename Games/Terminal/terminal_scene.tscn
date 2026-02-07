@@ -66,4 +66,5 @@ caret_blink = true
 caret_force_displayed = true
 caret_mid_grapheme = true
 
+[connection signal="gui_input" from="scroll_container/contents_container/HBoxContainer/command_line" to="." method="_on_command_line_gui_input"]
 [connection signal="text_submitted" from="scroll_container/contents_container/HBoxContainer/command_line" to="." method="_on_command_line_text_submitted"]
