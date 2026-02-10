@@ -68,7 +68,7 @@ theme_override_constants/separation = 1
 
 [node name="Terminal" parent="StartMenuAnchor/Start Menu/VBoxContainer" instance=ExtResource("2_1ualm")]
 layout_mode = 2
-game_scene = "res://Games/Terminal/terminal_scene.tscn"
+game_scene = "res://Games/Terminal/src/terminal_scene.tscn"
 title_text = "Terminal"
 description_text = "The best tool"
 use_generic_pause_menu = false

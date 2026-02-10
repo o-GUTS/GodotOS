@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://boie5q3r1lqgy"]
 
-[ext_resource type="Script" uid="uid://bdg57o6sh5i6p" path="res://Games/Terminal/terminal_script.gd" id="1_rb3gj"]
+[ext_resource type="Script" uid="uid://bdg57o6sh5i6p" path="res://Games/Terminal/src/terminal_script.gd" id="1_rb3gj"]
 [ext_resource type="Theme" uid="uid://dpurq16q71hq1" path="res://Games/Terminal/terminal_theme.tres" id="2_tk863"]
 
 [node name="terminal_scene" type="Control"]

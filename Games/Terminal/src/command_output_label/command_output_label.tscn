@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://buktfxd073666"]
 
-[ext_resource type="Script" uid="uid://b1mu4va2vhte4" path="res://Games/Terminal/command_output_label.gd" id="1_0m5ge"]
+[ext_resource type="Script" uid="uid://b1mu4va2vhte4" path="res://Games/Terminal/src/command_output_label/command_output_label.gd" id="1_0m5ge"]
 [ext_resource type="Theme" uid="uid://dpurq16q71hq1" path="res://Games/Terminal/terminal_theme.tres" id="1_gfgrk"]
 
 [node name="command_output_label" type="Label"]
