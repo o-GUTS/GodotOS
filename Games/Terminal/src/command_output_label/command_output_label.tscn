@@ -7,4 +7,5 @@
 offset_right = 40.0
 offset_bottom = 22.3333
 theme = ExtResource("1_gfgrk")
+autowrap_mode = 3
 script = ExtResource("1_0m5ge")

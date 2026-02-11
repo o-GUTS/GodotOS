@@ -10,5 +10,10 @@ func execute(terminal: Terminal, args: Array[String]) -> void:
 		terminal.push_line_to_output("Invalid command usage")
 		return
 	
-	for cmd_name: String in terminal.command_manager.get_command_call_names():
+	var commands: Array[String] = terminal.command_manager.get_command_call_names()
+	commands.sort_custom(
+		func(a: String, b: String) -> bool:
+			return a.length() < b.length()
+	)# Sort by call_name size
+	for cmd_name: String in commands:
 		terminal.push_line_to_output(cmd_name)
