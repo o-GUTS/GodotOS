@@ -53,12 +53,14 @@ func _on_command_line_text_submitted(new_text: String) -> void:
 
 	input_history_manager.push_to_history(new_text)
 	
-	var parsed_input: ParserOutput = input_parser.parse(new_text)
-	if command_manager.cmd_exists(parsed_input.command_call_name):
-		var cmd: TerminalCommand = command_manager.load_command(parsed_input.command_call_name)
-		cmd.execute(self, parsed_input.command_args)
-	else:
-		push_line_to_output("%s not found" % [parsed_input.command_call_name])
+	var parser_outputs: Array[ParserOutput] = input_parser.parse(new_text)
+	for output: ParserOutput in parser_outputs:
+		if command_manager.cmd_exists(output.command_call_name):
+			var cmd: TerminalCommand = command_manager.load_command(output.command_call_name)
+			cmd.execute(self, output.command_args)
+		else:
+			push_line_to_output("%s not found" % [output.command_call_name])
+
 
 func _on_command_line_gui_input(event: InputEvent) -> void:
 	# Increments index and get input at that time
