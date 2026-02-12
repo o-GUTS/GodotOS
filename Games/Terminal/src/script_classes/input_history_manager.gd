@@ -4,12 +4,12 @@ class_name InputHistoryManager
 ## Uses a custom queue to store the data.
 ## But is [b]not[/b] intended to be accessed directly, for this use [method push_to_history] or [method get_next].[br]
 ## Go to [member _input_history] for more information.
-##@experimental: This class is work in progress.
 
 
-##@experimental
+## The navigation direction on [member _input_history]
 enum DIR {
-	UP, DOWN
+	UP, ## Go for the "past" and get older commands
+	DOWN ## Go for the "present" and get newer commands
 }
 
 ## The maximum of inputs that will be saved.
@@ -25,7 +25,7 @@ var _input_history: Array[String] = [""]
 ## Used and modified internally to get the data on [param _input_history].
 var _input_history_index: int = 0
 
-##@experimental
+## Used when user starts to navigate history, to save the current typed command
 var cmd_line: LineEdit = null
 
 
@@ -48,12 +48,12 @@ func push_to_history(input: String) -> void:
 	_input_history_index = 0
 
 
-# Returns the value in input_history[_input_history_index +- 1]
-# and updates the history index
-##@experimental
+## Updates the [member _input_history_index] based on [param dir] and
+## returns input_history[_input_history_index].[br]
+## If [member _input_history_index] == 0 and going up, is the first move,
+## user is starting navigation, so we save the current typed command in the first position of the array,
+## so when it returns to 0 the command typed before is there.
 func get_next(dir: DIR) -> String:
-	# If user is starting the history navigation then sets the
-	# first element on the array to the current text in the command_line
 	if dir == DIR.UP and _input_history_index == 0:
 		_input_history[0] = cmd_line.text
 	
