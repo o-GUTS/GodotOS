@@ -1,16 +1,33 @@
 extends Control
 class_name Terminal
 
+# TODO:
+# document existing commands
+# Tab autocomplete
+# better cursor
+# scripting
+# new commands:
+#	help*, man*, rm, copy, move, var, exit, run
+
 const COMMAND_OUTPUT_LABEL_SCENE: PackedScene = preload("res://Games/Terminal/src/command_output_label/command_output_label.tscn")
 
 @onready var command_line: LineEdit = %command_line
 @onready var command_output_container: VBoxContainer = %command_output_container
 @onready var scroll_container: ScrollContainer = %scroll_container
+@onready var path_indicator_label: Label = %path_indicator_label
 
 @onready var command_manager := CommandManager.new()
 @onready var input_parser := InputParser.new()
 @onready var input_history_manager := InputHistoryManager.new(command_line)
+@onready var virtual_path_manager := VirtualPathManager.new()
 
+
+func _ready() -> void:
+	# updates the label that indicates the current path
+	virtual_path_manager.on_virtual_path_changes.connect(
+		func(_new_virt_path: String) -> void:
+			path_indicator_label.text = virtual_path_manager.get_current_folder() + " > "
+	)
 
 # Create and append a new CommandOutputLabel to the container
 func push_line_to_output(text: String) -> void:
@@ -45,7 +62,7 @@ func clear_output() -> void:
 # Called when the user presses enter with the command line in focus
 func _on_command_line_text_submitted(new_text: String) -> void:
 	command_line.clear()
-	push_line_to_output("~ > " + new_text)
+	push_line_to_output(virtual_path_manager.get_current_folder() + " > " + new_text)
 	
 	# Return early if user input is a empty string
 	if new_text.replace(" ", "") == "":
