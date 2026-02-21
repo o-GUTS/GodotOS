@@ -2,7 +2,6 @@ extends Control
 class_name Terminal
 
 # TODO:
-# document existing commands
 # Tab autocomplete
 # better cursor
 # scripting
@@ -34,6 +33,16 @@ func push_line_to_output(text: String) -> void:
 	var new_label: CommandOutputLabel = COMMAND_OUTPUT_LABEL_SCENE.instantiate()
 	command_output_container.add_child(new_label)
 	new_label.text = text
+	
+	update_scroll()
+
+
+# Create and append a new CommandOutputLabel for every element in lines to the container
+func push_lines_to_output(lines: Array[String]) -> void:
+	for line: String in lines:
+		var new_label: CommandOutputLabel = COMMAND_OUTPUT_LABEL_SCENE.instantiate()
+		command_output_container.add_child(new_label)
+		new_label.text = line
 	
 	update_scroll()
 

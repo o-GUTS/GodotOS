@@ -7,7 +7,9 @@ func _init() -> void:
 
 func execute(terminal: Terminal, args: Array[String]) -> void:
 	if args.size() > 0:
-		terminal.push_line_to_output("Invalid command usage")
+		terminal.push_line_to_output(
+			"Invalid number of arguments, expected 0, found %s." % [args.size()]
+		)
 		return
 	
 	var date_dict: Dictionary = Time.get_datetime_dict_from_system()
@@ -31,6 +33,15 @@ func execute(terminal: Terminal, args: Array[String]) -> void:
 	terminal.push_line_to_output(
 		day_string + hour_string
 	)
+
+
+func usage() -> Array[String]:
+	return [
+		"Date - Prints DateTime.",
+		"USAGE:",
+		"Takes no arguments.",
+		"Push the current date and time to the terminal."
+	]
 
 
 func get_weekday_string(weekday: Time.Weekday) -> String:

@@ -14,3 +14,12 @@ func execute(terminal: Terminal, args: Array[String]) -> void:
 	output.strip_edges()
 	
 	terminal.push_line_to_output(output)
+
+
+func usage() -> Array[String]:
+	return [
+		"Echo - Prints text to the terminal.",
+		"USAGE:",
+		"Expects zero or more arguments.",
+		"Push all given arguments as one line to the terminal."
+	]

@@ -7,9 +7,20 @@ func _init() -> void:
 
 func execute(terminal: Terminal, args: Array[String]) -> void:
 	if args.size() > 0:
-		terminal.push_line_to_output("Invalid command usage")
+		terminal.push_line_to_output(
+			"Invalid number of arguments, expected 0, found %s." % [args.size()]
+		)
 		return
 	
 	terminal.push_line_to_output(
 		terminal.virtual_path_manager.get_path()
 	)
+
+
+func usage() -> Array[String]:
+	return [
+		"Pwd - Print working directory.",
+		"USAGE:",
+		"Takes no arguments.",
+		"Pushes the current directory path to the terminal."
+	]

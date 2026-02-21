@@ -6,8 +6,10 @@ func _init() -> void:
 
 
 func execute(terminal: Terminal, args: Array[String]) -> void:
-	if args.size() > 1 or args.size() == 0:
-		terminal.push_line_to_output("Invalid command usage")
+	if args.size() == 0 or args.size() > 1:
+		terminal.push_line_to_output(
+			"Invalid number of arguments, expected 1, found %s." % [args.size()]
+		)
 		return
 	
 	var current_path: String = terminal.virtual_path_manager.get_path()
@@ -22,4 +24,13 @@ func execute(terminal: Terminal, args: Array[String]) -> void:
 		for line: String in file_text:
 			terminal.push_line_to_output(line)
 	else:
-		terminal.push_line_to_output(file_path + " not found")
+		terminal.push_line_to_output(file_path + " do not exist or its a folder.")
+
+
+func usage() -> Array[String]:
+	return [
+		"Cat - Prints all lines of a file.",
+		"USAGE:",
+		"Takes one argument, a valid .txt file name",
+		"then push it to the terminal, line by line."
+	]

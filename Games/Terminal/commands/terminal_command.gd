@@ -17,3 +17,10 @@ func _init() -> void:
 @warning_ignore("unused_parameter")
 func execute(terminal: Terminal, args: Array[String]) -> void:
 	assert(false, "Not implemented, the command main code goes here")
+
+
+## Called by "help" command or arbitrary by the command itself.
+func usage() -> Array[String]:
+	assert(false, "Not implemented, the command usage instructions goes here")
+	
+	return []

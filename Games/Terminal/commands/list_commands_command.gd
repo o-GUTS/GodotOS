@@ -7,7 +7,9 @@ func _init() -> void:
 
 func execute(terminal: Terminal, args: Array[String]) -> void:
 	if args.size() > 0:
-		terminal.push_line_to_output("Invalid command usage")
+		terminal.push_line_to_output(
+			"Invalid number of arguments, expected 0, found %s." % [args.size()]
+		)
 		return
 	
 	var commands: Array[String] = terminal.command_manager.get_command_call_names()
@@ -17,3 +19,13 @@ func execute(terminal: Terminal, args: Array[String]) -> void:
 	)# Sort by call_name size
 	for cmd_name: String in commands:
 		terminal.push_line_to_output(cmd_name)
+
+
+func usage() -> Array[String]:
+	return [
+		"Commands - List commands.",
+		"USAGE:",
+		"Takes no arguments.",
+		"Push to the terminal all valid commands call_name,",
+		"in order from smallest to largest."
+	]

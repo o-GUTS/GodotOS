@@ -6,12 +6,23 @@ func _init() -> void:
 
 
 func execute(terminal: Terminal, args: Array[String]) -> void:
-	var desktop: DesktopFileManager = terminal.get_tree().get_first_node_in_group("desktop_file_manager")
+	if args.size() > 0:
+		terminal.push_line_to_output(
+			"Invalid number of arguments, expected 0, found %s." % [args.size()]
+		)
+		return
 	
-	if args.size() == 1:
-		desktop.new_folder()
-		
-		#TODO change new folder name to match arg[0]
-		terminal.push_line_to_output("Created new directory named: %s" % [args[0]])
-	else:
-		terminal.push_line_to_output("Invalid command usage")
+	var desktop: DesktopFileManager = terminal.get_tree().get_first_node_in_group("desktop_file_manager")
+	desktop.new_folder()
+	
+	#TODO change new folder name to match arg[0]
+	terminal.push_line_to_output("Created new directory in root.")
+
+
+func usage() -> Array[String]:
+	return [
+		"Mkdir - Make directory.",
+		"USAGE:",
+		"Takes no arguments.",
+		"Creates a new folder in the root directory."
+	]
