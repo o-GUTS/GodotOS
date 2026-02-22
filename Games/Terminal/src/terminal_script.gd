@@ -3,10 +3,9 @@ class_name Terminal
 
 # TODO:
 # Tab autocomplete
-# better cursor
 # scripting
 # new commands:
-#	help*, man*, rm, copy, move, var, exit, run
+#	rm, copy, move, var, exit, run
 
 const COMMAND_OUTPUT_LABEL_SCENE: PackedScene = preload("res://Games/Terminal/src/command_output_label/command_output_label.tscn")
 
@@ -27,6 +26,7 @@ func _ready() -> void:
 		func(_new_virt_path: String) -> void:
 			path_indicator_label.text = virtual_path_manager.get_current_folder() + " > "
 	)
+
 
 # Create and append a new CommandOutputLabel to the container
 func push_line_to_output(text: String) -> void:
