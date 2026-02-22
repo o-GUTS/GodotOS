@@ -57,18 +57,26 @@ func sort_folders() -> void:
 ## Creates a new folder.
 ## Not to be confused with instantiating which adds an existing real folder, this function CREATES one. 
 func new_folder(new_folder_name: String = "New Folder", folder_path: String = "") -> void:
+	# Takes file_path as priority for folders added
+	# by context menu, this is for backward compatibility
+	if not file_path.is_empty():
+		folder_path = file_path
+	
+	# Guarantees a "/" at the end of the path
 	if folder_path.length() > 0 and not folder_path.ends_with('/'):
 		folder_path += '/'
 	
 	if DirAccess.dir_exists_absolute("user://files/%s%s" % [folder_path, new_folder_name]):
+		var valid_name: String = new_folder_name
 		for i in range(2, 1000):
-			new_folder_name = new_folder_name + (" %d" % i)
-			if !DirAccess.dir_exists_absolute("user://files/%s%s" % [folder_path, new_folder_name]):
+			valid_name = new_folder_name + (" %d" % i)
+			if !DirAccess.dir_exists_absolute("user://files/%s%s" % [folder_path, valid_name]):
 				break
+		new_folder_name = valid_name
 	
 	DirAccess.make_dir_absolute("user://files/%s%s" % [folder_path, new_folder_name])
 	for file_manager: FileManagerWindow in get_tree().get_nodes_in_group("file_manager_window"):
-		if file_manager.file_path == folder_path:
+		if file_manager.file_path + '/' == folder_path:
 			file_manager.instantiate_file(new_folder_name, "%s%s" % [folder_path, new_folder_name], FakeFolder.file_type_enum.FOLDER)
 			await get_tree().process_frame # Waiting for child to get added...
 			sort_folders()
