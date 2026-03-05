@@ -136,8 +136,8 @@ func list_directories(virt_path: String = ".") -> PackedStringArray:
 
 
 func _assert_file(path: String) -> void:
-	assert(path_is_valid_file(path), path + " is not a file or do not exist")
+	assert(path_is_valid_file(path), path + " is not a file or does not exist")
 
 
 func _assert_folder(path: String) -> void:
-	assert(path_is_valid_folder(path), path + " is not a folder or do not exist")
+	assert(path_is_valid_folder(path), path + " is not a folder or does not exist")

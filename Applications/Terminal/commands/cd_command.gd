@@ -31,15 +31,15 @@ func execute(terminal: Terminal, args: Array[String]) -> void:
 	if terminal.virtual_path_manager.path_is_valid_folder(folder_path):
 		terminal.virtual_path_manager.set_path(folder_path)
 	else:
-		terminal.push_line_to_output(folder_path + " do not exist or its a file.")
+		terminal.push_line_to_output(folder_path + " does not exist or is a file.")
 
 
 func usage() -> Array[String]:
 	return [
 		"Cd - Change directory.",
 		"USAGE:",
-		"Expects a valid path or nothing as argument.",
-		"If no argument is given, change to root directory,",
-		"If \"..\" is given, go up one directory,",
-		"If a valid path is given, change to it.",
+		"Expects either no arguments or a valid directory path.",
+		"If no argument is given, it moves to the root directory.",
+		"If \"..\" is given, it goes up one directory.",
+		"If a valid path is given, it moves to that directory.",
 	]

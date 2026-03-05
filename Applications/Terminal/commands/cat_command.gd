@@ -24,7 +24,7 @@ func execute(terminal: Terminal, args: Array[String]) -> void:
 		for line: String in file_text:
 			terminal.push_line_to_output(line)
 	else:
-		terminal.push_line_to_output(file_path + " do not exist or its a folder.")
+		terminal.push_line_to_output(file_path + " does not exist or is a folder.")
 
 
 func usage() -> Array[String]:
@@ -32,5 +32,5 @@ func usage() -> Array[String]:
 		"Cat - Prints all lines of a file.",
 		"USAGE:",
 		"Takes one argument, a valid .txt file name",
-		"then push it to the terminal, line by line."
+		"then pushes it to the terminal, line by line."
 	]

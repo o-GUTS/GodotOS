@@ -40,7 +40,7 @@ func usage() -> Array[String]:
 		"Date - Prints DateTime.",
 		"USAGE:",
 		"Takes no arguments.",
-		"Push the current date and time to the terminal."
+		"Prints the current date and time in the terminal."
 	]
 
 

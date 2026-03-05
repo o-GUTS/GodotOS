@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://boie5q3r1lqgy"]
+[gd_scene format=3 uid="uid://boie5q3r1lqgy"]
 
-[ext_resource type="Script" uid="uid://bdg57o6sh5i6p" path="res://Games/Terminal/src/terminal_script.gd" id="1_rb3gj"]
-[ext_resource type="Theme" uid="uid://dpurq16q71hq1" path="res://Games/Terminal/terminal_theme.tres" id="2_tk863"]
+[ext_resource type="Script" uid="uid://bdg57o6sh5i6p" path="res://Applications/Terminal/src/terminal_script.gd" id="1_rb3gj"]
+[ext_resource type="Theme" uid="uid://dpurq16q71hq1" path="res://Applications/Terminal/terminal_theme.tres" id="2_tk863"]
 
-[node name="terminal_scene" type="Control"]
+[node name="terminal_scene" type="Control" unique_id=1439124676]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,7 +13,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_rb3gj")
 
-[node name="bg" type="ColorRect" parent="."]
+[node name="bg" type="ColorRect" parent="." unique_id=1698894329]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -22,7 +22,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="scroll_container" type="ScrollContainer" parent="."]
+[node name="scroll_container" type="ScrollContainer" parent="." unique_id=1390495388]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -33,29 +33,29 @@ grow_vertical = 2
 theme = ExtResource("2_tk863")
 horizontal_scroll_mode = 0
 
-[node name="contents_container" type="VBoxContainer" parent="scroll_container"]
+[node name="contents_container" type="VBoxContainer" parent="scroll_container" unique_id=1362071357]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = -1
 
-[node name="command_output_container" type="VBoxContainer" parent="scroll_container/contents_container"]
+[node name="command_output_container" type="VBoxContainer" parent="scroll_container/contents_container" unique_id=642311176]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_constants/separation = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="scroll_container/contents_container"]
+[node name="HBoxContainer" type="HBoxContainer" parent="scroll_container/contents_container" unique_id=669729459]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="path_indicator_label" type="Label" parent="scroll_container/contents_container/HBoxContainer"]
+[node name="path_indicator_label" type="Label" parent="scroll_container/contents_container/HBoxContainer" unique_id=1068375502]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 1
 theme = ExtResource("2_tk863")
 text = " > "
 
-[node name="command_line" type="LineEdit" parent="scroll_container/contents_container/HBoxContainer"]
+[node name="command_line" type="LineEdit" parent="scroll_container/contents_container/HBoxContainer" unique_id=2033281241]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3

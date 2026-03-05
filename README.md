@@ -22,6 +22,7 @@ Aside from that, GodotOS is also meant to be a hub for small games and experienc
 * Additionals Wallpapers are by [lydex256](https://github.com/lydex256).
 * "Godotris" by [MrakDun-desu](https://github.com/MrakDun-desu)
 * "Snake" by [jean-philippe-martin](https://github.com/jean-philippe-martin)
+* "Terminal" by [o-GUTS](https://github.com/o-GUTS)
 
 ---
 

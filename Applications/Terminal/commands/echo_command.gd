@@ -21,5 +21,5 @@ func usage() -> Array[String]:
 		"Echo - Prints text to the terminal.",
 		"USAGE:",
 		"Expects zero or more arguments.",
-		"Push all given arguments as one line to the terminal."
+		"Prints all given arguments as one line in the terminal."
 	]

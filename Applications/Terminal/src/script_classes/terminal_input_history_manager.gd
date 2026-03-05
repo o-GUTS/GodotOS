@@ -1,4 +1,4 @@
-class_name InputHistoryManager
+class_name TerminalInputHistoryManager
 ## Utility class to handle input history.
 ##
 ## Uses a custom queue to store the data.

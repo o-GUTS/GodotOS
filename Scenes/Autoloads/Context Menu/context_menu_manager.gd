@@ -150,7 +150,7 @@ func _handle_folder_rename() -> void:
 	target.get_node("%Folder Title Edit").show_rename()
 
 func _handle_open_terminal() -> void:
-	get_node("/root/Control/Taskbar/StartMenuAnchor/Start Menu/VBoxContainer/Terminal").spawn_window()
+	get_node("/root/Control/Taskbar/StartMenuAnchor/Start Menu/VBoxContainer/Terminal Option").spawn_window()
 
 func _handle_set_wallpaper() -> void:
 	# TODO make this a relative path?

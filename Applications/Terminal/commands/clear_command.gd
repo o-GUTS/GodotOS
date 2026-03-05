@@ -17,8 +17,9 @@ func execute(terminal: Terminal, args: Array[String]) -> void:
 
 func usage() -> Array[String]:
 	return [
-		"Clear - Clear screen.",
+		"Clear - Clears the screen.",
 		"USAGE:",
 		"Takes no arguments.",
-		"queue_free all lines to clear screen, emptying the output history."
+		"Runs queue_free for all lines to clear screen,",
+		"emptying the output history."
 	]

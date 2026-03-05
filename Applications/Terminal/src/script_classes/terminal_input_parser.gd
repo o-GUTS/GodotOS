@@ -1,9 +1,9 @@
-class_name InputParser
+class_name TerminalInputParser
 ## Utility class used for sanitizing and parsing Strings.
 ##
 ##Example:
 ##[codeblock]
-##var parser := InputParser.new()
+##var parser := TerminalInputParser.new()
 ##var outputs: Array[ParserOuput] = parser.parse("echo hello && echo world"))
 ##
 ##print(output[0].command_call_name)# prints "echo"
@@ -21,13 +21,13 @@ class_name InputParser
 ##echo "hello world" -> ["echo", ["hello world"]]
 ##echo hello && echo world -> [["echo", ["hello"]], ["echo", ["world"]]
 ##[/codeblock]
-func parse(input: String) -> Array[ParserOutput]:
+func parse(input: String) -> Array[TerminalParserOutput]:
 	# Return early if empty String
 	if input == "" or input.count(" ") == input.length():
 		return []
 	
 	var sub_inputs: PackedStringArray = input.split("&&", false)
-	var outputs: Array[ParserOutput] = []
+	var outputs: Array[TerminalParserOutput] = []
 	
 	for inp: String in sub_inputs:
 		var parsed_input: Array[String] = []
@@ -54,7 +54,7 @@ func parse(input: String) -> Array[ParserOutput]:
 		parsed_input.append(current_substring)
 		
 		outputs.append(
-			ParserOutput.new(
+			TerminalParserOutput.new(
 				parsed_input[0],
 				parsed_input.slice(1, parsed_input.size())# Get rid of the first element, the command_call_name
 			)

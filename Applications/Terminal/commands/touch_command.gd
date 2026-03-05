@@ -24,7 +24,7 @@ func execute(terminal: Terminal, args: Array[String]) -> void:
 			continue
 		
 		elif file_name.contains('/') or file_name.contains('\\'):
-			terminal.push_line_to_output("File %s has a invalid name." % file_name)
+			terminal.push_line_to_output("File %s has an invalid name." % file_name)
 			continue
 		
 		elif files.has(file_name):

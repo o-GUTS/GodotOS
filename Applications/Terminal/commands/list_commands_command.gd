@@ -26,6 +26,6 @@ func usage() -> Array[String]:
 		"Commands - List commands.",
 		"USAGE:",
 		"Takes no arguments.",
-		"Push to the terminal all valid commands call_name,",
-		"in order from smallest to largest."
+		"Prints all valid commands,",
+		"in order from shortest to longest."
 	]

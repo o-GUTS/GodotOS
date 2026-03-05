@@ -88,7 +88,7 @@ func new_folder(new_folder_name: String = "New Folder", folder_path: String = ""
 ## Creates a new file.
 ## Not to be confused with instantiating which adds an existing real folder, this function CREATES one. 
 func new_file(extension: String, file_type: FakeFolder.file_type_enum, new_file_name: String = "New File", new_file_path: String = "") -> void:
-	new_file_name = new_file_name.replace(".txt", "") + extension
+	new_file_name = new_file_name.trim_suffix(".txt")
 	
 	# Takes file_path as priority for folders added
 	# by context menu, this is for backward compatibility
@@ -102,7 +102,7 @@ func new_file(extension: String, file_type: FakeFolder.file_type_enum, new_file_
 	if FileAccess.file_exists("user://files/%s%s" % [new_file_path, new_file_name]):
 		var valid_name: String = new_file_name
 		for i in range(2, 1000):
-			valid_name = new_file_name + str(i) + extension
+			valid_name = "%s %d%s" % [new_file_name, i, extension]
 			if !FileAccess.file_exists("user://files/%s%s" % [new_file_path, valid_name]):
 				break
 		new_file_name = valid_name

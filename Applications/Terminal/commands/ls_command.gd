@@ -24,6 +24,5 @@ func usage() -> Array[String]:
 		"Ls - List directory.",
 		"USAGE:",
 		"Takes no arguments.",
-		"Push to the terminal all directories",
-		"then all the files, in the current path."
+		"Prints all directories and files in the current path"
 	]

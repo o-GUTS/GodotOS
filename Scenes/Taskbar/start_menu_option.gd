@@ -2,8 +2,11 @@ extends Panel
 
 ## A start menu option. Currently only used to spawn game windows and nothing else.
 
-## Path to the game scene
+## Path to the game scene (if it's a game)
 @export var game_scene: String
+
+## Path to the application scene (if it's an application)
+@export var application_scene: String
 
 ## Title shown in start menu option (added at runtime).
 @export var title_text: String
@@ -50,11 +53,17 @@ func _on_mouse_exited() -> void:
 # TODO find a better way than copying this from desktop_folder.gd
 func spawn_window() -> void:
 	var window: FakeWindow
-	window = load("res://Scenes/Window/Game Window/game_window.tscn").instantiate()
-	window.get_node("%Game Window").add_child(load(game_scene).instantiate())
 	
-	if use_generic_pause_menu:
-		window.get_node("%GamePauseManager").process_mode = Node.PROCESS_MODE_INHERIT
+	if game_scene:
+		window = load("res://Scenes/Window/Game Window/game_window.tscn").instantiate()
+		window.get_node("%Game Window").add_child(load(game_scene).instantiate())
+		
+		if use_generic_pause_menu:
+			window.get_node("%GamePauseManager").process_mode = Node.PROCESS_MODE_INHERIT
+		
+	elif application_scene:
+		window = load("uid://e14mtfpwja0f").instantiate()
+		window.get_node("%ApplicationContents").add_child(load(application_scene).instantiate())
 	
 	window.title_text = %"Menu Title".text
 	get_tree().current_scene.add_child(window)

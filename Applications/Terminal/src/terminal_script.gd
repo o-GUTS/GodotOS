@@ -2,18 +2,19 @@ extends Control
 class_name Terminal
 
 
-const COMMAND_OUTPUT_LABEL_SCENE: PackedScene = preload("res://Games/Terminal/src/command_output_label/command_output_label.tscn")
+const COMMAND_OUTPUT_LABEL_SCENE: PackedScene = preload("uid://buktfxd073666")
 
 @onready var command_line: LineEdit = %command_line
 @onready var command_output_container: VBoxContainer = %command_output_container
 @onready var scroll_container: ScrollContainer = %scroll_container
 @onready var path_indicator_label: Label = %path_indicator_label
 
-@onready var command_manager := CommandManager.new()
-@onready var input_parser := InputParser.new()
-@onready var input_history_manager := InputHistoryManager.new(command_line)
+@onready var command_manager := TerminalCommandManager.new()
+@onready var input_parser := TerminalInputParser.new()
+@onready var input_history_manager := TerminalInputHistoryManager.new(command_line)
 @onready var virtual_path_manager := VirtualPathManager.new()
 
+var parent_window: FakeWindow
 
 func _ready() -> void:
 	# updates the label that indicates the current path when virtual path changes
@@ -34,7 +35,7 @@ func _ready() -> void:
 			virtual_path_manager.set_path(path)
 	
 	# command_line focus follows window focus
-	var parent_window: FakeWindow = find_parent_window()
+	parent_window = find_parent_window()
 	if parent_window != null:
 		parent_window.selected.connect(
 			func(is_selected: bool) -> void:
@@ -49,21 +50,22 @@ func _input(event: InputEvent) -> void:
 	# command_line focus whenever the user clicks the window
 	if event is InputEventMouseButton and event.is_pressed():
 		command_line.grab_focus()
+		parent_window.select_window(true)
 
 
-# Create and append a new CommandOutputLabel to the container
+# Create and append a new TerminalCommandOutputLabel to the container
 func push_line_to_output(text: String) -> void:
-	var new_label: CommandOutputLabel = COMMAND_OUTPUT_LABEL_SCENE.instantiate()
+	var new_label: TerminalCommandOutputLabel = COMMAND_OUTPUT_LABEL_SCENE.instantiate()
 	command_output_container.add_child(new_label)
 	new_label.text = text
 	
 	update_scroll()
 
 
-# Create and append a new CommandOutputLabel for every element in lines to the container
+# Create and append a new TerminalCommandOutputLabel for every element in lines to the container
 func push_lines_to_output(lines: Array[String]) -> void:
 	for line: String in lines:
-		var new_label: CommandOutputLabel = COMMAND_OUTPUT_LABEL_SCENE.instantiate()
+		var new_label: TerminalCommandOutputLabel = COMMAND_OUTPUT_LABEL_SCENE.instantiate()
 		command_output_container.add_child(new_label)
 		new_label.text = line
 	
@@ -85,7 +87,7 @@ func update_scroll() -> void:
 
 # Just queue_free all the labels
 func clear_output() -> void:
-	for child: CommandOutputLabel in command_output_container.get_children():
+	for child: TerminalCommandOutputLabel in command_output_container.get_children():
 		child.queue_free()
 
 
@@ -117,8 +119,8 @@ func _on_command_line_text_submitted(new_text: String) -> void:
 
 	input_history_manager.push_to_history(new_text)
 	
-	var parser_outputs: Array[ParserOutput] = input_parser.parse(new_text)
-	for output: ParserOutput in parser_outputs:
+	var parser_outputs: Array[TerminalParserOutput] = input_parser.parse(new_text)
+	for output: TerminalParserOutput in parser_outputs:
 		if command_manager.cmd_exists(output.command_call_name):
 			var cmd: TerminalCommand = command_manager.load_command(output.command_call_name)
 			cmd.execute(self, output.command_args)
@@ -129,10 +131,10 @@ func _on_command_line_text_submitted(new_text: String) -> void:
 func _on_command_line_gui_input(event: InputEvent) -> void:
 	# Increments index and get input at that time
 	if event.is_action_pressed("ui_text_caret_up"):
-		command_line.text = input_history_manager.get_next(InputHistoryManager.DIR.UP)
+		command_line.text = input_history_manager.get_next(TerminalInputHistoryManager.DIR.UP)
 		command_line.set_deferred("caret_column", command_line.text.length())
 	
 	# Decrements index and get input at that time
 	elif event.is_action_pressed("ui_text_caret_down"):
-		command_line.text = input_history_manager.get_next(InputHistoryManager.DIR.DOWN)
+		command_line.text = input_history_manager.get_next(TerminalInputHistoryManager.DIR.DOWN)
 		command_line.set_deferred("caret_column", command_line.text.length())

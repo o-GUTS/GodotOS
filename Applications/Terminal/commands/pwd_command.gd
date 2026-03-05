@@ -19,8 +19,8 @@ func execute(terminal: Terminal, args: Array[String]) -> void:
 
 func usage() -> Array[String]:
 	return [
-		"Pwd - Print working directory.",
+		"Pwd - Prints the working directory.",
 		"USAGE:",
 		"Takes no arguments.",
-		"Pushes the current directory path to the terminal."
+		"Prints the current directory path in the terminal."
 	]

@@ -41,7 +41,7 @@ func usage() -> Array[String]:
 		"Help - Prints a command usage information.",
 		"USAGE:",
 		"Takes zero or one argument.",
-		"If no argument is given show the usage and the list of commands.",
-		"If given argument is a valid command call_name",
-		"push it's usage info line by line to the terminal."
+		"If no argument is given, it shows the list of commands.",
+		"If given argument is a valid command call_name,",
+		"it prints the command's usage info to the terminal."
 	]
