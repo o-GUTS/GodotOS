@@ -88,7 +88,8 @@ func new_folder(new_folder_name: String = "New Folder", folder_path: String = ""
 ## Creates a new file.
 ## Not to be confused with instantiating which adds an existing real folder, this function CREATES one. 
 func new_file(extension: String, file_type: FakeFolder.file_type_enum, new_file_name: String = "New File", new_file_path: String = "") -> void:
-	new_file_name = new_file_name.trim_suffix(".txt")
+	# remove any extension of the new_file_name
+	new_file_name = new_file_name.substr(0, new_file_name.find('.'))
 	
 	# Takes file_path as priority for folders added
 	# by context menu, this is for backward compatibility
@@ -99,25 +100,27 @@ func new_file(extension: String, file_type: FakeFolder.file_type_enum, new_file_
 	if new_file_path.length() > 0 and not new_file_path.ends_with('/'):
 		new_file_path += '/'
 	
-	if FileAccess.file_exists("user://files/%s%s" % [new_file_path, new_file_name]):
+	if FileAccess.file_exists("user://files/%s%s%s" % [new_file_path, new_file_name, extension]):
 		var valid_name: String = new_file_name
 		for i in range(2, 1000):
-			valid_name = "%s %d%s" % [new_file_name, i, extension]
-			if !FileAccess.file_exists("user://files/%s%s" % [new_file_path, valid_name]):
+			valid_name = "%s_%d" % [new_file_name, i]
+			if !FileAccess.file_exists("user://files/%s%s%s" % [new_file_path, valid_name, extension]):
 				break
 		new_file_name = valid_name
 	
+	var new_file_name_with_extension: String = new_file_name + extension
+	
 	# Just touches the file
-	var _file: FileAccess = FileAccess.open("user://files/%s%s" % [new_file_path, new_file_name], FileAccess.WRITE)
+	var _file: FileAccess = FileAccess.open("user://files/%s%s" % [new_file_path, new_file_name_with_extension], FileAccess.WRITE)
 	
 	for file_manager: FileManagerWindow in get_tree().get_nodes_in_group("file_manager_window"):
 		if file_manager.file_path + '/' == new_file_path:
-			file_manager.instantiate_file(new_file_name, new_file_path, file_type)
+			file_manager.instantiate_file(new_file_name_with_extension, new_file_path, file_type)
 			await get_tree().process_frame # Waiting for child to get added...
 			file_manager.sort_folders()
 	
 	if new_file_path.is_empty():
-		instantiate_file(new_file_name, new_file_path, file_type)
+		instantiate_file(new_file_name_with_extension, new_file_path, file_type)
 		sort_folders()
 
 ## Finds a file/folder based on name and frees it (but doesn't delete it from the actual system)
